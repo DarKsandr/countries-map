@@ -3,7 +3,11 @@
 </script>
 
 <template>
-  $END$
+  <div>
+    <select>
+      
+    </select>
+  </div>
 </template>
 
 <style scoped>
