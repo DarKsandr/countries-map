@@ -1,14 +1,9 @@
-import type Coordinate from "./Coordinate.ts";
+import type CountryItem from "./CountryItem.ts";
 
 export default interface Country {
     name: string;
     code: string;
     items: [
-        {
-            name: string;
-            code: string;
-            image: string;
-            coordinate: Coordinate;
-        }
+        CountryItem
     ]
 }

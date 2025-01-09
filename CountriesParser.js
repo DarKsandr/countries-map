@@ -1,80 +1,92 @@
 import { parse } from 'svg-parser';
 import fs from 'node:fs';
-import minimist from 'minimist';
+import { registerWindow, SVG } from '@svgdotjs/svg.js';
+import { createSVGWindow } from 'svgdom';
 
-const ROOT = `./src/countries/`;
+class CountriesParser {
 
-async function parseFile({code, name}, options) {
+    constructor({code, name}) {
+        const ROOT = `./src/countries/`;
+        this.folder = ROOT + `${code}/`;
+        this.itemsFolder = this.folder + `items/`;
+        this.path = ROOT + `${code}.svg`;
 
-    const folder = ROOT + `${code}/`;
-    const itemsFolder = folder + `items/`;
+        this.config = {
+            name,
+            code,
+            items: [],
+        };
+    }
 
-    await fs.promises.rm(folder, { recursive: true, force: true });
-    await fs.promises.mkdir(folder);
-    await fs.promises.mkdir(itemsFolder);
+    generateSvg(properties, svg_attr = ''){
+        return `<svg xmlns="http://www.w3.org/2000/svg" ${svg_attr}><path d="${properties.d}" fill="white" stroke="black" title="${properties.title}" id="${properties.id}" /></svg>`;
+    }
 
-    const path = ROOT + `${code}.svg`;
+    async parse(){
+        await this.makeDir();
+        const file = await fs.promises.readFile(this.path, 'utf8');
+        const parsed = parse(file);
 
-    const config = {
-        name,
-        code,
-        items: [],
-    };
-
-    fs.readFile(path, 'utf8', function(err, data) {
-        if (err) {
-            throw err;
-        }
-        const parsed = parse(data);
         parsed.children[0].children.forEach(({properties}) => {
             if(properties.title === undefined){
                 return;
             }
-            const content = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-        <svg xmlns="http://www.w3.org/2000/svg">
-            <path
-                d="${properties.d}"
-                fill="white"
-                stroke="black"
-                title="${properties.title}"
-                id="${properties.id}" />
-        </svg>`;
 
-            const svgPath = itemsFolder +  `${properties.title}.svg`;
-
-            fs.writeFile(svgPath, content, err => {
-                if(err){
-                    throw err;
-                }
-            });
-
-            config.items.push({
-                name: properties.title,
-                code: properties.id,
-                image: svgPath,
-                coordinate: {
-                    x: 1,
-                    y: 1,
-                }
-            });
+            this.createSvg(properties);
         });
 
-        if(!options?.withoutConfig){
-            fs.writeFile(folder + `config.json`, JSON.stringify(config), err => {
-                if(err){
-                    throw err;
-                }
-            });
-        }
-    });
+        await this.createConfig();
+    }
+
+    async makeDir(){
+        await fs.promises.rm(this.folder, { recursive: true, force: true });
+        await fs.promises.mkdir(this.folder);
+        await fs.promises.mkdir(this.itemsFolder);
+    }
+
+    createSvg(properties){
+        const rootSvg = SVG(this.generateSvg(properties));
+        const box = rootSvg.bbox();
+        const content = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>`
+            + this.generateSvg(properties, `viewBox="${box.x} ${box.y} ${box.width} ${box.height}" width="${box.width}" height="${box.height}"`);
+
+        const svgPath = this.itemsFolder +  `${properties.title}.svg`;
+
+        this.config.items.push({
+            name: properties.title,
+            code: properties.id,
+            image: svgPath,
+            width: box.width,
+            height: box.height,
+            coordinate: {
+                x: 1,
+                y: 1,
+            }
+        });
+
+        return fs.promises.writeFile(svgPath, content);
+    }
+
+    createConfig(){
+        return fs.promises.writeFile(this.folder + `config.json`, JSON.stringify(this.config));
+    }
 }
 
-const argv = minimist(process.argv);
+const window = createSVGWindow();
+const { document } = window;
+registerWindow(window, document);
 
-[
-    {code: 'world', name: 'Мир'},
+const countries = [
+    // {code: 'world', name: 'Мир'},
     {code: 'africa', name: "Африка"},
-].forEach(p => parseFile(p, {
-    withoutConfig: argv?.withoutConfig ?? false
-}));
+];
 
+const jobs = countries.map(p => {
+    const item = new CountriesParser(p);
+    return item.parse;
+});
+
+console.log('Start work');
+Promise.all(jobs).then(() => {
+    console.log('Done!');
+});
