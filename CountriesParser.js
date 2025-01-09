@@ -1,18 +1,25 @@
 import { parse } from 'svg-parser';
 import fs from 'node:fs';
+import minimist from 'minimist';
 
 const ROOT = `./src/countries/`;
 
-function parseFile(name) {
+async function parseFile({code, name}, options) {
 
-    const folderName = ROOT + `${name}/items/`;
+    const folder = ROOT + `${code}/`;
+    const itemsFolder = folder + `items/`;
 
-    fs.rm(folderName, { recursive: true, force: true }, (err) => {
-        if (err) throw err;
-        fs.mkdirSync(folderName);
-    });
+    await fs.promises.rm(folder, { recursive: true, force: true });
+    await fs.promises.mkdir(folder);
+    await fs.promises.mkdir(itemsFolder);
 
-    const path = ROOT + `${name}/${name}.svg`;
+    const path = ROOT + `${code}.svg`;
+
+    const config = {
+        name,
+        code,
+        items: [],
+    };
 
     fs.readFile(path, 'utf8', function(err, data) {
         if (err) {
@@ -20,6 +27,9 @@ function parseFile(name) {
         }
         const parsed = parse(data);
         parsed.children[0].children.forEach(({properties}) => {
+            if(properties.title === undefined){
+                return;
+            }
             const content = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
         <svg xmlns="http://www.w3.org/2000/svg">
             <path
@@ -30,17 +40,41 @@ function parseFile(name) {
                 id="${properties.id}" />
         </svg>`;
 
-            fs.writeFile(folderName +  `/${properties.title}.svg`, content, err => {
+            const svgPath = itemsFolder +  `${properties.title}.svg`;
+
+            fs.writeFile(svgPath, content, err => {
                 if(err){
                     throw err;
                 }
             });
+
+            config.items.push({
+                name: properties.title,
+                code: properties.id,
+                image: svgPath,
+                coordinate: {
+                    x: 1,
+                    y: 1,
+                }
+            });
         });
+
+        if(!options?.withoutConfig){
+            fs.writeFile(folder + `config.json`, JSON.stringify(config), err => {
+                if(err){
+                    throw err;
+                }
+            });
+        }
     });
 }
 
+const argv = minimist(process.argv);
+
 [
-    'world',
-    'africa',
-].forEach(p => parseFile(p));
+    {code: 'world', name: 'Мир'},
+    {code: 'africa', name: "Африка"},
+].forEach(p => parseFile(p, {
+    withoutConfig: argv?.withoutConfig ?? false
+}));
 
