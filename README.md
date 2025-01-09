@@ -5,8 +5,3 @@
 ```
 node ./CountriesParser.js
 ```
-
-Запуск генерации файлов без конфига:
-```
-node ./CountriesParser.js --withoutConfig
-```
