@@ -11,27 +11,27 @@ const country = computed(() => countryCode.value
     : null
 );
 
-const rate = ref(2);
+const zoom = ref(2);
 
 const countryEnter = ref<CountryItem|null>(null);
+
+const language = ref("ru");
 </script>
 
 <template>
     <div class="container">
-      <div class="row sticky-top bg-white border-bottom border-2">
-        <Header
-            v-model="countryCode"
-            v-model:rate="rate"
-            :country-enter="countryEnter"
-        />
-      </div>
-      <div class="row mt-3">
-        <Map
-            v-if="country"
-            :country="country"
-            :rate="rate"
-            @country-enter="countryEnter = $event"
-        />
-      </div>
+      <Header
+          v-model="countryCode"
+          v-model:zoom="zoom"
+          v-model:language="language"
+          :country-enter="countryEnter"
+      />
+      <Map
+          v-if="country"
+          class="mt-3 position-relative overflow-hidden vh-100"
+          :country="country"
+          :zoom="zoom"
+          @country-enter="countryEnter = $event"
+      />
     </div>
 </template>

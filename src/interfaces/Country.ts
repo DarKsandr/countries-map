@@ -1,9 +1,8 @@
 import type CountryItem from "./CountryItem.ts";
+import type Language from "./Language.ts";
 
 export default interface Country {
-    name: string;
+    name: Language;
     code: string;
-    items: [
-        CountryItem
-    ]
+    items: Array<CountryItem>
 }

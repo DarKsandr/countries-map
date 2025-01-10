@@ -5,7 +5,7 @@
 
   defineProps<{
     country: Country;
-    rate: number;
+    zoom: number;
   }>();
 
   const emit = defineEmits<{
@@ -14,18 +14,25 @@
 </script>
 
 <template>
-  <div>
-      <InlineSvg
-          v-for="item in country.items"
-          :src="item.image"
-          :width="item.width * rate"
-          :height="item.height * rate"
-          @mouseenter="emit('countryEnter', item)"
-          @mouseleave="emit('countryEnter', null)"
-      />
+  <div class="map-container">
+    <InlineSvg
+        v-for="item in country.items"
+        class="map-item"
+        :style="{top: `${item.coordinate.y * zoom}px`, left: `${item.coordinate.x * zoom}px`}"
+        :src="item.image"
+        :width="item.width * zoom"
+        :height="item.height * zoom"
+        @mouseenter="emit('countryEnter', item)"
+        @mouseleave="emit('countryEnter', null)"
+    />
   </div>
 </template>
 
 <style scoped>
-
+  .map-container {
+    background: rgba(151, 144, 238, 0.1);
+  }
+  .map-item {
+    position: absolute;
+  }
 </style>

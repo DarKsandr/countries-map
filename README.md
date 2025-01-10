@@ -3,5 +3,5 @@
 ## Parser
 Запуск генерации файлов:
 ```
-node ./CountriesParser.js
+npm run parse
 ```

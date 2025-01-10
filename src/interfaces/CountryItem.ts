@@ -1,7 +1,8 @@
 import type Coordinate from "./Coordinate.ts";
+import type Language from "./Language.ts";
 
 export default interface CountryItem {
-    name: string;
+    name: Language;
     code: string;
     image: string;
     width: number;

@@ -1,38 +1,50 @@
 <script setup lang="ts">
   import Countries from "../countries";
   import type CountryItem from "../interfaces/CountryItem.ts";
+  import type Language from "../interfaces/Language.ts";
 
   const model = defineModel();
-  const rate = defineModel('rate');
+  const zoom = defineModel('zoom');
+  const language = defineModel('language');
   defineProps<{
     countryEnter: CountryItem|null
   }>()
 
-  function changeRate(e: Event) {
+  function changeZoom(e: Event) {
     const target = <HTMLInputElement>e.target;
     const value = +target.value
-    rate.value = value ? value : 2;
+    zoom.value = value ? value : 2;
   }
 </script>
 
 <template>
-  <div class="d-flex justify-content-between py-4 ">
-    <div>
+  <div class="row sticky-top bg-white border-bottom border-2 pt-4 pb-lg-4 gap-3 gap-lg-0">
+    <div class="col-lg-2 col-md-12">
       <select v-model="model" class="form-select">
-        <option v-for="item in Countries" :key="item.code" :value="item.code">{{item.name}}</option>
+        <option v-for="item in Countries" :key="item.code" :value="item.code">
+          {{item.name[language as keyof Language]}}
+        </option>
       </select>
     </div>
 
-    <div v-if="countryEnter" class="h4">{{countryEnter.name}}</div>
+    <div class="h4 col-6 d-none d-lg-flex justify-content-center align-items-center">
+      <div v-if="countryEnter">{{countryEnter.name[language as keyof Language]}}</div>
+    </div>
 
-    <div class="d-flex gap-3">
-      <div>
-        <input type="number" class="form-control" placeholder="Масштаб" @change="changeRate($event)" :value="rate" min="1" max="4" />
-      </div>
+    <div class="d-flex gap-3 col-lg-4 col-md-12">
+      <input type="number" class="form-control" placeholder="Масштаб" @change="changeZoom($event)" :value="zoom" min="1" max="10" />
+<!--      <select v-model="language">-->
+<!--        <option value="ru">Русский</option>-->
+<!--        <option value="en">English</option>-->
+<!--      </select>-->
       <div class="btn-group">
         <button class="btn btn-primary">Собрать</button>
         <button class="btn btn-secondary">Размешать</button>
       </div>
+    </div>
+
+    <div class="h4 col-12 d-flex d-sm-none justify-content-center align-items-center">
+      <div v-if="countryEnter">{{countryEnter.name[language as keyof Language]}}</div>
     </div>
   </div>
 </template>
