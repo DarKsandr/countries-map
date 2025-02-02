@@ -1,5 +1,5 @@
 services:
-  server:
+  node:
     container_name: countries-map-node
     image: node:23.7-slim
     ports:
