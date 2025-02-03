@@ -6,7 +6,7 @@
   import ModalConfirm from "./ModalConfirm.vue";
   import {modal} from "../utils.ts";
   import ZoomInput from "./ZoomInput.vue";
-  import {computed, useTemplateRef} from "vue";
+  import {computed} from "vue";
   import Timer from "./Timer.vue";
 
   const store = useAppStore();
@@ -15,25 +15,13 @@
     countryEnter: CountryItem|null
   }>();
 
-  const collectModal = useTemplateRef('collect-modal');
-  function collect(){
-    if(store.isStart){
-      modal(collectModal.value);
-    } else {
-      store.collect = true;
-    }
-  }
-
-  const shuffleModal = useTemplateRef('shuffle-modal');
-  function shuffle(){
-    if(store.isStart){
-      modal(shuffleModal.value);
-    } else {
-      store.shuffle = true;
-    }
-  }
-
   const isDisabled = computed(() => !store.country);
+  const isDisabledSystem = computed(() => isDisabled.value || store.isStart);
+
+  function start(){
+    store.isStart = true;
+    store.shuffle = true;
+  }
 </script>
 
 <template>
@@ -57,8 +45,8 @@
 <!--        <option value="en">English</option>-->
 <!--      </select>-->
       <div class="btn-group">
-        <button class="btn btn-primary" @click="collect" :disabled="isDisabled">Собрать</button>
-        <button class="btn btn-dark" @click="shuffle" :disabled="isDisabled">Размешать</button>
+        <button class="btn btn-primary" @click="store.collect = true" :disabled="isDisabledSystem">Собрать</button>
+        <button class="btn btn-dark" @click="store.shuffle = true" :disabled="isDisabledSystem">Размешать</button>
         <button class="btn btn-warning" @click="store.check = true" :disabled="isDisabled">Проверить</button>
         <button class="btn btn-success" v-if="!store.isStart" @click="modal($refs['start-modal'])" :disabled="isDisabled">Старт</button>
         <button class="btn btn-danger" v-else @click="modal($refs['finish-modal'])" :disabled="isDisabled">Закончить</button>
@@ -71,15 +59,7 @@
     </div>
   </div>
 
-  <modal-confirm title="Вы уверены?" ref="shuffle-modal" @confirm="store.shuffle = true">
-    Размешать карту
-  </modal-confirm>
-
-  <modal-confirm title="Вы уверены?" ref="collect-modal" @confirm="store.collect = true">
-    Собрать карту
-  </modal-confirm>
-
-  <modal-confirm title="Вы уверены?" ref="start-modal" @confirm="store.isStart = true">
+  <modal-confirm title="Вы уверены?" ref="start-modal" @confirm="start">
     Начать
   </modal-confirm>
 
