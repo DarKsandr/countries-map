@@ -129,6 +129,7 @@ console.log('Start work', new Date());
 
 const files = [
     'africa',
+    'usa',
 ];
 
 const jobs: any[] = [];
