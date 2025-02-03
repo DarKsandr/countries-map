@@ -54,8 +54,20 @@
   const init = () => {
     const res: Country = deepClone(props.country);
 
+    let min_x = null;
+    let min_y = null;
+
     res.items.forEach(item => {
-      item.coordinate.y += 10;
+      if(min_x === null || min_x > item.coordinate.x){
+        min_x = item.coordinate.x;
+      }
+      if(min_y === null || min_y > item.coordinate.y){
+        min_y = item.coordinate.y;
+      }
+    });
+    res.items.forEach(item => {
+      item.coordinate.x -= min_x;
+      item.coordinate.y -= min_y;
     });
     data.value = deepClone(res);
     dataSave.value = deepClone(res);
@@ -66,16 +78,16 @@
   watch(shuffle, value => {
     if(value){
       shuffle.value = false;
-      const localData: Country = Object.assign(data.value);
+      const localData: Country = deepClone(data.value);
       const box = (mapContainer.value as HTMLElement).getBoundingClientRect();
-      const proc = 0.4;
+      const proc = 0.2;
       localData.items.forEach(item => {
         const x = randomInteger(0, box.width - (item.width * props.zoom) - (box.width * proc));
         const y = randomInteger(0, box.height - (item.height * props.zoom) - (box.height * proc));
         item.coordinate.x = x > 0 ? x / props.zoom : 0;
         item.coordinate.y = y > 0 ? y / props.zoom : 0;
       });
-      data.value = Object.assign(localData);
+      data.value = deepClone(localData);
     }
   });
 
@@ -84,7 +96,7 @@
       collect.value = false;
       data.value = deepClone(dataSave.value);
     }
-  })
+  });
 </script>
 
 <template>

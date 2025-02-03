@@ -19,6 +19,13 @@ const language = ref("ru");
 
 const shuffle = ref(false);
 const collect = ref(false);
+
+const updateCountry = () => {
+  const value = country.value;
+  if(value){
+    zoom.value = value.zoom;
+  }
+}
 </script>
 
 <template>
@@ -30,12 +37,14 @@ const collect = ref(false);
           v-model:collect="collect"
           v-model:shuffle="shuffle"
           :country-enter="countryEnter"
+          @update:model-value="updateCountry"
       />
       <Map
           v-if="country"
           class="mt-3 position-relative overflow-hidden vh-100"
           :country="country"
           :zoom="zoom"
+          :key="country.code"
           @country-enter="countryEnter = $event"
           v-model:collect="collect"
           v-model:shuffle="shuffle"

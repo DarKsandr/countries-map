@@ -11,16 +11,18 @@ const ROOT = `./src/countries/`;
 class CountriesParser {
 
     code: string;
+    zoom: number;
     folder: string;
     itemsFolder: string;
     path: string;
     config: Country;
 
-    constructor(code: string) {
-        this.folder = ROOT + `${code}/`;
+    constructor(item) {
+        this.code = item.code;
+        this.zoom = item?.zoom ?? 2;
+        this.folder = ROOT + `${this.code}/`;
         this.itemsFolder = this.folder + `items/`;
-        this.path = ROOT + `${code}.svg`;
-        this.code = code;
+        this.path = ROOT + `${this.code}.svg`;
     }
 
     generateSvg(properties: any, svg_attr = ''){
@@ -52,6 +54,7 @@ class CountriesParser {
         this.config = {
             name: await this.getLanguage(this.code),
             code: this.code,
+            zoom: this.zoom,
             items: [],
         };
         await this.makeDir();
@@ -128,13 +131,13 @@ registerWindow(window, document);
 console.log('Start work', new Date());
 
 const files = [
-    'africa',
-    'usa',
+    {code: 'africa', zoom: 3},
+    {code: 'usa'},
 ];
 
 const jobs: any[] = [];
-files.forEach(code => {
-    jobs.push(new CountriesParser(code).parse());
+files.forEach(item => {
+    jobs.push(new CountriesParser(item).parse());
 });
 
 Promise.all(jobs).then(() => {

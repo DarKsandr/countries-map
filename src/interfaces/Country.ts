@@ -4,5 +4,6 @@ import type Language from "./Language.ts";
 export default interface Country {
     name: Language;
     code: string;
-    items: Array<CountryItem>
+    zoom: number;
+    items: Array<CountryItem>,
 }
