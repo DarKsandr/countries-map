@@ -3,22 +3,15 @@
   import type CountryItem from "../interfaces/CountryItem.ts";
   import type Language from "../interfaces/Language.ts";
   import {useAppStore} from "../stores/appStore.ts";
+  import ModalConfirm from "./ModalConfirm.vue";
+  import {confirmModal} from "../utils.ts";
+  import ZoomInput from "./ZoomInput.vue";
 
   const store = useAppStore();
 
   defineProps<{
     countryEnter: CountryItem|null
   }>()
-
-  function changeZoom(e: Event) {
-    const target = <HTMLInputElement>e.target;
-    const value = +target.value
-    store.zoom = value ? value : 2;
-  }
-
-  function shuffle() {
-    store.shuffle = true;
-  }
 </script>
 
 <template>
@@ -36,14 +29,14 @@
     </div>
 
     <div class="d-flex gap-3 col-lg-3 col-md-12">
-      <input type="number" class="form-control" placeholder="Масштаб" @change="changeZoom($event)" :value="store.zoom" min="1" max="10" />
+      <zoom-input />
 <!--      <select v-model="store.language">-->
 <!--        <option value="ru">Русский</option>-->
 <!--        <option value="en">English</option>-->
 <!--      </select>-->
       <div class="btn-group">
-        <button class="btn btn-primary" @click="store.collect = true">Собрать</button>
-        <button class="btn btn-danger" @click="shuffle">Размешать</button>
+        <button class="btn btn-primary" @click="confirmModal($refs['collect-modal'])">Собрать</button>
+        <button class="btn btn-danger" @click="confirmModal($refs['shuffle-modal'])">Размешать</button>
         <button class="btn btn-success" @click="store.check = true">Проверить</button>
       </div>
     </div>
@@ -52,6 +45,14 @@
       <div v-if="countryEnter">{{countryEnter.name[store.language as keyof Language]}}</div>
     </div>
   </div>
+
+  <modal-confirm title="Вы уверены?" ref="shuffle-modal" @confirm="store.shuffle = true">
+    Размешать карту
+  </modal-confirm>
+
+  <modal-confirm title="Вы уверены?" ref="collect-modal" @confirm="store.collect = true">
+    Собрать карту
+  </modal-confirm>
 </template>
 
 <style scoped>
