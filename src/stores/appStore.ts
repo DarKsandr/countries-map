@@ -9,6 +9,7 @@ export const useAppStore = defineStore('app', {
         shuffle: false,
         collect: false,
         check: false,
+        isStart: false,
     }),
     getters: {
         country(){

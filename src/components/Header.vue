@@ -6,12 +6,32 @@
   import ModalConfirm from "./ModalConfirm.vue";
   import {confirmModal} from "../utils.ts";
   import ZoomInput from "./ZoomInput.vue";
+  import {useTemplateRef} from "vue";
+  import Timer from "./Timer.vue";
 
   const store = useAppStore();
 
   defineProps<{
     countryEnter: CountryItem|null
-  }>()
+  }>();
+
+  const collectModal = useTemplateRef('collect-modal');
+  function collect(){
+    if(store.isStart){
+      confirmModal(collectModal);
+    } else {
+      store.collect = true;
+    }
+  }
+
+  const shuffleModal = useTemplateRef('shuffle-modal');
+  function shuffle(){
+    if(store.isStart){
+      confirmModal(shuffleModal);
+    } else {
+      store.shuffle = true;
+    }
+  }
 </script>
 
 <template>
@@ -24,21 +44,24 @@
       </select>
     </div>
 
-    <div class="h4 col-7 d-none d-lg-flex justify-content-center align-items-center">
+    <div class="h4 col-6 d-none d-lg-flex justify-content-center align-items-center">
       <div v-if="countryEnter">{{countryEnter.name[store.language as keyof Language]}}</div>
     </div>
 
-    <div class="d-flex gap-3 col-lg-3 col-md-12">
-      <zoom-input />
+    <div class="d-flex gap-3 col-lg-4 col-md-12 align-items-center">
+      <zoom-input :disabled="!store.country" />
 <!--      <select v-model="store.language">-->
 <!--        <option value="ru">Русский</option>-->
 <!--        <option value="en">English</option>-->
 <!--      </select>-->
       <div class="btn-group">
-        <button class="btn btn-primary" @click="confirmModal($refs['collect-modal'])">Собрать</button>
-        <button class="btn btn-danger" @click="confirmModal($refs['shuffle-modal'])">Размешать</button>
-        <button class="btn btn-success" @click="store.check = true">Проверить</button>
+        <button class="btn btn-primary" @click="collect" :disabled="!store.country">Собрать</button>
+        <button class="btn btn-dark" @click="shuffle" :disabled="!store.country">Размешать</button>
+        <button class="btn btn-warning" @click="store.check = true" :disabled="!store.country">Проверить</button>
+        <button class="btn btn-success" v-if="!store.isStart" @click="confirmModal($refs['start-modal'])" :disabled="!store.country">Старт</button>
+        <button class="btn btn-danger" v-else @click="confirmModal($refs['finish-modal'])" :disabled="!store.country">Закончить</button>
       </div>
+      <timer v-if="store.isStart" />
     </div>
 
     <div class="h4 col-12 d-flex d-sm-none justify-content-center align-items-center">
@@ -52,6 +75,14 @@
 
   <modal-confirm title="Вы уверены?" ref="collect-modal" @confirm="store.collect = true">
     Собрать карту
+  </modal-confirm>
+
+  <modal-confirm title="Вы уверены?" ref="start-modal" @confirm="store.isStart = true">
+    Начать
+  </modal-confirm>
+
+  <modal-confirm title="Вы уверены?" ref="finish-modal" @confirm="store.isStart = false">
+    Закончить
   </modal-confirm>
 </template>
 
