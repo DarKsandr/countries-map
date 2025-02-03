@@ -6,7 +6,7 @@
   import ModalConfirm from "./ModalConfirm.vue";
   import {confirmModal} from "../utils.ts";
   import ZoomInput from "./ZoomInput.vue";
-  import {useTemplateRef} from "vue";
+  import {computed, useTemplateRef} from "vue";
   import Timer from "./Timer.vue";
 
   const store = useAppStore();
@@ -32,6 +32,8 @@
       store.shuffle = true;
     }
   }
+
+  const isDisabled = computed(() => !store.country);
 </script>
 
 <template>
@@ -49,17 +51,17 @@
     </div>
 
     <div class="d-flex gap-3 col-lg-4 col-md-12 align-items-center">
-      <zoom-input :disabled="!store.country" />
+      <zoom-input :disabled="isDisabled" />
 <!--      <select v-model="store.language">-->
 <!--        <option value="ru">Русский</option>-->
 <!--        <option value="en">English</option>-->
 <!--      </select>-->
       <div class="btn-group">
-        <button class="btn btn-primary" @click="collect" :disabled="!store.country">Собрать</button>
-        <button class="btn btn-dark" @click="shuffle" :disabled="!store.country">Размешать</button>
-        <button class="btn btn-warning" @click="store.check = true" :disabled="!store.country">Проверить</button>
-        <button class="btn btn-success" v-if="!store.isStart" @click="confirmModal($refs['start-modal'])" :disabled="!store.country">Старт</button>
-        <button class="btn btn-danger" v-else @click="confirmModal($refs['finish-modal'])" :disabled="!store.country">Закончить</button>
+        <button class="btn btn-primary" @click="collect" :disabled="isDisabled">Собрать</button>
+        <button class="btn btn-dark" @click="shuffle" :disabled="isDisabled">Размешать</button>
+        <button class="btn btn-warning" @click="store.check = true" :disabled="isDisabled">Проверить</button>
+        <button class="btn btn-success" v-if="!store.isStart" @click="confirmModal($refs['start-modal'])" :disabled="isDisabled">Старт</button>
+        <button class="btn btn-danger" v-else @click="confirmModal($refs['finish-modal'])" :disabled="isDisabled">Закончить</button>
       </div>
       <timer v-if="store.isStart" />
     </div>
