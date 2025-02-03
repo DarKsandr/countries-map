@@ -5,25 +5,27 @@ import { createSVGWindow } from 'svgdom';
 import type Country from "./src/interfaces/Country";
 import translate from "translate";
 import type Language from "./src/interfaces/Language";
+import path from 'node:path';
 
-const ROOT = `./src/countries/`;
+const ROOT = `./src/countries/files/`;
 
 class CountriesParser {
 
     code: string;
     zoom: number;
-    exceptions: array;
+    exceptions: [];
     folder: string;
     itemsFolder: string;
     path: string;
     config: Country;
 
-    constructor(item) {
-        this.code = item.code;
+    constructor(item: any) {
+        this.path = item.path;
+        this.code = path.parse(this.path).name;
         this.zoom = item?.zoom ?? 2;
         this.folder = ROOT + `${this.code}/`;
         this.itemsFolder = this.folder + `items/`;
-        this.path = ROOT + `${this.code}.svg`;
+       
         this.exceptions = item?.exceptions ?? [];
     }
 
@@ -72,12 +74,13 @@ class CountriesParser {
             if(!('properties' in item)){
                 throw new Error('Could not parse properties for the given properties.');
             }
-            const properties = item.properties;
+            const properties: any = item.properties;
             if(
-                properties.title === undefined
-                || properties.id === undefined
-                || this.exceptions.includes(properties.id)
+                properties.title === undefined || properties.id === undefined
             ){
+                return;
+            }
+            if(this.exceptions.includes(properties.id as never)){
                 return;
             }
 
@@ -106,7 +109,6 @@ class CountriesParser {
     }
 
     async makeDir(){
-        await rm(this.folder, { recursive: true, force: true });
         await mkdir(this.folder);
         await mkdir(this.itemsFolder);
     }
@@ -142,9 +144,12 @@ registerWindow(window, document);
 console.log('Start work', new Date());
 
 const files = [
-    {code: 'africa', zoom: 3, exceptions: ['KI', 'PS', 'KW', 'QA', 'DJ', 'YT', 'ST', 'SC', 'RE', 'MU', 'KM', 'BH', 'JU', 'GO', 'GM', 'GI']},
-    {code: 'usa'},
+    {path: './src/countries/africa.svg', zoom: 3, exceptions: ['KI', 'PS', 'KW', 'QA', 'DJ', 'YT', 'ST', 'SC', 'RE', 'MU', 'KM', 'BH', 'JU', 'GO', 'GM', 'GI', 'CV']},
+    {path: './src/countries/usa.svg', exceptions: ['US-AK', 'US-HI', 'US-DC']},
 ];
+
+await rm(ROOT, { recursive: true, force: true });
+await mkdir(ROOT);
 
 const jobs: any[] = [];
 files.forEach(item => {
