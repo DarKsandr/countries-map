@@ -12,6 +12,7 @@ class CountriesParser {
 
     code: string;
     zoom: number;
+    exceptions: array;
     folder: string;
     itemsFolder: string;
     path: string;
@@ -23,6 +24,7 @@ class CountriesParser {
         this.folder = ROOT + `${this.code}/`;
         this.itemsFolder = this.folder + `items/`;
         this.path = ROOT + `${this.code}.svg`;
+        this.exceptions = item?.exceptions ?? [];
     }
 
     generateSvg(properties: any, svg_attr = ''){
@@ -71,19 +73,21 @@ class CountriesParser {
                 throw new Error('Could not parse properties for the given properties.');
             }
             const properties = item.properties;
-            if(properties.title === undefined || properties.id === undefined){
+            if(
+                properties.title === undefined
+                || properties.id === undefined
+                || this.exceptions.includes(properties.id)
+            ){
                 return;
             }
 
             const rootSvg = SVG(this.generateSvg(properties));
             const box = rootSvg.bbox();
             if(box.width > 200 || box.width < 3 || box.height > 200 || box.height < 3){
-                console.warn(`Skip country: ${properties.title}; size: [width: ${box.width}, height: ${box.height}]`);
-                return;
+                this.warning('Warning size', properties, box);
             }
             if(box.x === 0 || box.y === 0) {
-                console.warn(`Skip country: ${properties.title}; coordinate: [x: ${box.x}, y: ${box.y}]`);
-                return;
+                this.warning('Warning coordinate', properties, box);
             }
 
             jobs.push(this.createSvg(properties, box));
@@ -92,6 +96,13 @@ class CountriesParser {
         await Promise.all(jobs);
 
         await this.createConfig();
+    }
+
+    warning(text: string, properties: any, box: Box){
+        const data = Object.assign({}, properties, box);
+        // const dataText = '';
+        const dataText = `Data: ` + JSON.stringify(data);
+        console.warn(`${text}. Map: "${this.code}"; Code: "${properties.id}"; ${dataText}\n`);
     }
 
     async makeDir(){
@@ -131,7 +142,7 @@ registerWindow(window, document);
 console.log('Start work', new Date());
 
 const files = [
-    {code: 'africa', zoom: 3},
+    {code: 'africa', zoom: 3, exceptions: ['KI', 'PS', 'KW', 'QA', 'DJ', 'YT', 'ST', 'SC', 'RE', 'MU', 'KM', 'BH', 'JU', 'GO', 'GM', 'GI']},
     {code: 'usa'},
 ];
 

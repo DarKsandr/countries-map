@@ -2,9 +2,9 @@
   import {computed, ref} from "vue";
 
   const timer = ref(0);
-  let timerId;
+  let timerId: any;
 
-  function init(value){
+  function init(value: boolean){
     timer.value = 0;
     if(value){
       timerId = setInterval(() => {

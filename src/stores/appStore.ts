@@ -1,9 +1,10 @@
 import {defineStore} from "pinia";
 import Countries from "../countries";
+import type Country from "../interfaces/Country";
 
 export const useAppStore = defineStore('app', {
     state: () => ({
-        code: null,
+        code: null as null|string,
         zoom: 2,
         language: 'ru',
         shuffle: false,
@@ -12,10 +13,12 @@ export const useAppStore = defineStore('app', {
         isStart: false,
     }),
     getters: {
-        country(){
-            return this.code
-                ? Countries.find(item => item.code === this.code)
+        country(): null|Country
+        {
+            const country = this.code
+                ? Countries.find((item: Country) => item.code === this.code)
                 : null;
+            return country ? country : null;
         }
     },
     actions: {

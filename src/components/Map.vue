@@ -19,13 +19,13 @@
 
   const findItem = (target: HTMLElement) => {
     const code = target.dataset.code;
-    return data.value.items.find(item => item.code === code);
+    return data.value.items.find((item: CountryItem) => item.code === code);
   }
 
   interact('.map-item').draggable({
     listeners: {
       start(){
-        data.value.items.forEach(item => {
+        data.value.items.forEach((item: CountryItem) => {
           item.zIndex = 1;
         });
       },
@@ -48,8 +48,8 @@
   const init = () => {
     const res: Country = deepClone(store.country);
 
-    let min_x = null;
-    let min_y = null;
+    let min_x: number|null = null;
+    let min_y: number|null = null;
 
     res.items.forEach(item => {
       if(min_x === null || min_x > item.coordinate.x){
@@ -60,8 +60,12 @@
       }
     });
     res.items.forEach(item => {
-      item.coordinate.x -= min_x;
-      item.coordinate.y -= min_y;
+      if(min_x){
+        item.coordinate.x -= min_x;
+      }
+      if(min_y){
+        item.coordinate.y -= min_y;
+      }
     });
     data.value = deepClone(res);
     dataSave.value = deepClone(res);
