@@ -37,7 +37,7 @@
 </script>
 
 <template>
-  <div class="row sticky-top bg-white border-bottom border-2 pt-4 pb-lg-4 gap-3 gap-lg-0">
+  <div class="row sticky-top bg-white border-bottom border-2 pt-4 pb-lg-4 gap-3 gap-lg-0 align-items-center">
     <div class="col-lg-2 col-md-12">
       <select v-model="store.code" class="form-select" @change="store.changeZoom">
         <option v-for="item in Countries" :key="item.code" :value="item.code">
@@ -46,7 +46,7 @@
       </select>
     </div>
 
-    <div class="h4 col-lg-3 d-none d-lg-flex justify-content-center align-items-center">
+    <div class="h4 col-lg-3 d-none d-lg-flex justify-content-center align-items-center country-enter">
       <div v-if="countryEnter">{{countryEnter.name[store.language as keyof Language]}}</div>
     </div>
 
@@ -66,7 +66,7 @@
       <timer v-if="store.isStart" />
     </div>
 
-    <div class="h4 col-12 d-flex d-sm-none justify-content-center align-items-center">
+    <div class="h4 col-12 d-lg-none d-xl-none d-xl-flex justify-content-center align-items-center country-enter text-center">
       <div v-if="countryEnter">{{countryEnter.name[store.language as keyof Language]}}</div>
     </div>
   </div>
@@ -89,5 +89,7 @@
 </template>
 
 <style scoped>
-
+  .country-enter{
+    height: 50px;
+  }
 </style>
