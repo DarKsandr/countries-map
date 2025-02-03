@@ -24,6 +24,11 @@
 
   interact('.map-item').draggable({
     listeners: {
+      start(){
+        data.value.items.forEach(item => {
+          item.zIndex = 1;
+        });
+      },
       move (event) {
         const item = findItem(event.target);
         if(item){
@@ -32,12 +37,6 @@
           item.zIndex = 2;
         }
       },
-      end(event){
-        const item = findItem(event.target);
-        if(item){
-          item.zIndex = 1;
-        }
-      }
     },
     modifiers: [
       interact.modifiers.restrictRect({
