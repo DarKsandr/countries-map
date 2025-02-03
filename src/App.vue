@@ -1,53 +1,25 @@
 <script setup lang="ts">
 import Header from "./components/Header.vue";
 import Map from "./components/Map.vue";
-import {computed, ref} from "vue";
-import Countries from "./countries";
+import {ref} from "vue";
 import type CountryItem from "./interfaces/CountryItem.ts";
+import {useAppStore} from "./stores/appStore.ts";
 
-const countryCode = ref(null);
-const country = computed(() => countryCode.value
-    ? Countries.find(item => item.code === countryCode.value)
-    : null
-);
-
-const zoom = ref(2);
+const store = useAppStore();
 
 const countryEnter = ref<CountryItem|null>(null);
-
-const language = ref("ru");
-
-const shuffle = ref(false);
-const collect = ref(false);
-
-const updateCountry = () => {
-  const value = country.value;
-  if(value){
-    zoom.value = value.zoom;
-  }
-}
 </script>
 
 <template>
     <div class="container-fluid">
       <Header
-          v-model="countryCode"
-          v-model:zoom="zoom"
-          v-model:language="language"
-          v-model:collect="collect"
-          v-model:shuffle="shuffle"
           :country-enter="countryEnter"
-          @update:model-value="updateCountry"
       />
       <Map
-          v-if="country"
+          v-if="store.country"
           class="mt-3 position-relative overflow-hidden vh-100"
-          :country="country"
-          :zoom="zoom"
-          :key="country.code"
+          :key="store.country.code"
           @country-enter="countryEnter = $event"
-          v-model:collect="collect"
-          v-model:shuffle="shuffle"
       />
     </div>
 </template>

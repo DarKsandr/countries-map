@@ -5,18 +5,13 @@
   import interact from 'interactjs';
   import {onMounted, ref, useTemplateRef, watch} from "vue";
   import {deepClone, randomInteger} from "../utils.ts";
+  import {useAppStore} from "../stores/appStore.ts";
 
-  const props = defineProps<{
-    country: Country;
-    zoom: number;
-  }>();
+  const store = useAppStore();
 
   const emit = defineEmits<{
     countryEnter: [item: CountryItem|null]
   }>();
-
-  const shuffle = defineModel('shuffle');
-  const collect = defineModel('collect');
 
   const mapContainer = useTemplateRef('map-container');
   const data = ref();
@@ -32,8 +27,8 @@
       move (event) {
         const item = findItem(event.target);
         if(item){
-          item.coordinate.x += event.dx / props.zoom;
-          item.coordinate.y += event.dy / props.zoom;
+          item.coordinate.x += event.dx / store.zoom;
+          item.coordinate.y += event.dy / store.zoom;
           item.zIndex = 2;
         }
       },
@@ -52,7 +47,7 @@
   });
 
   const init = () => {
-    const res: Country = deepClone(props.country);
+    const res: Country = deepClone(store.country);
 
     let min_x = null;
     let min_y = null;
@@ -75,25 +70,25 @@
 
   onMounted(init);
 
-  watch(shuffle, value => {
+  watch(() => store.shuffle, value => {
     if(value){
-      shuffle.value = false;
+      store.shuffle = false;
       const localData: Country = deepClone(data.value);
       const box = (mapContainer.value as HTMLElement).getBoundingClientRect();
       const proc = 0.2;
       localData.items.forEach(item => {
-        const x = randomInteger(0, box.width - (item.width * props.zoom) - (box.width * proc));
-        const y = randomInteger(0, box.height - (item.height * props.zoom) - (box.height * proc));
-        item.coordinate.x = x > 0 ? x / props.zoom : 0;
-        item.coordinate.y = y > 0 ? y / props.zoom : 0;
+        const x = randomInteger(0, box.width - (item.width * store.zoom) - (box.width * proc));
+        const y = randomInteger(0, box.height - (item.height * store.zoom) - (box.height * proc));
+        item.coordinate.x = x > 0 ? x / store.zoom : 0;
+        item.coordinate.y = y > 0 ? y / store.zoom : 0;
       });
       data.value = deepClone(localData);
     }
   });
 
-  watch(collect, (value) => {
+  watch(() => store.collect, (value) => {
     if(value){
-      collect.value = false;
+      store.collect = false;
       data.value = deepClone(dataSave.value);
     }
   });
@@ -105,10 +100,10 @@
       <InlineSvg
           v-for="item in data.items"
           class="map-item"
-          :style="{top: `${item.coordinate.y * zoom}px`, left: `${item.coordinate.x * zoom}px`, 'z-index': item.zIndex}"
+          :style="{top: `${item.coordinate.y * store.zoom}px`, left: `${item.coordinate.x * store.zoom}px`, 'z-index': item.zIndex}"
           :src="item.image"
-          :width="item.width * zoom"
-          :height="item.height * zoom"
+          :width="item.width * store.zoom"
+          :height="item.height * store.zoom"
           :data-code="item.code"
           @mouseenter="emit('countryEnter', item)"
           @mouseleave="emit('countryEnter', null)"
