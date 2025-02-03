@@ -8,4 +8,5 @@ export default interface CountryItem {
     width: number;
     height: number;
     coordinate: Coordinate;
+    zIndex: number;
 }

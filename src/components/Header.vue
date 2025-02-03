@@ -6,6 +6,8 @@
   const model = defineModel();
   const zoom = defineModel('zoom');
   const language = defineModel('language');
+  defineModel('shuffle');
+  defineModel('collect');
   defineProps<{
     countryEnter: CountryItem|null
   }>()
@@ -27,19 +29,19 @@
       </select>
     </div>
 
-    <div class="h4 col-6 d-none d-lg-flex justify-content-center align-items-center">
+    <div class="h4 col-7 d-none d-lg-flex justify-content-center align-items-center">
       <div v-if="countryEnter">{{countryEnter.name[language as keyof Language]}}</div>
     </div>
 
-    <div class="d-flex gap-3 col-lg-4 col-md-12">
+    <div class="d-flex gap-3 col-lg-3 col-md-12">
       <input type="number" class="form-control" placeholder="Масштаб" @change="changeZoom($event)" :value="zoom" min="1" max="10" />
 <!--      <select v-model="language">-->
 <!--        <option value="ru">Русский</option>-->
 <!--        <option value="en">English</option>-->
 <!--      </select>-->
       <div class="btn-group">
-        <button class="btn btn-primary">Собрать</button>
-        <button class="btn btn-secondary">Размешать</button>
+        <button class="btn btn-primary" @click="$emit('update:collect', true)">Собрать</button>
+        <button class="btn btn-secondary" @click="$emit('update:shuffle', true)">Размешать</button>
       </div>
     </div>
 

@@ -16,14 +16,19 @@ const zoom = ref(2);
 const countryEnter = ref<CountryItem|null>(null);
 
 const language = ref("ru");
+
+const shuffle = ref(false);
+const collect = ref(false);
 </script>
 
 <template>
-    <div class="container">
+    <div class="container-fluid">
       <Header
           v-model="countryCode"
           v-model:zoom="zoom"
           v-model:language="language"
+          v-model:collect="collect"
+          v-model:shuffle="shuffle"
           :country-enter="countryEnter"
       />
       <Map
@@ -32,6 +37,8 @@ const language = ref("ru");
           :country="country"
           :zoom="zoom"
           @country-enter="countryEnter = $event"
+          v-model:collect="collect"
+          v-model:shuffle="shuffle"
       />
     </div>
 </template>

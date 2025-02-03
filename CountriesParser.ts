@@ -62,7 +62,7 @@ class CountriesParser {
             throw new Error('Could not parse children');
         }
 
-        const jobs = [];
+        const jobs: any[] = [];
         parsed.children[0].children.forEach((item: any) => {
             if(!('properties' in item)){
                 throw new Error('Could not parse properties for the given properties.');
@@ -109,7 +109,8 @@ class CountriesParser {
             image: svgPath,
             width,
             height,
-            coordinate: {x, y}
+            coordinate: {x, y},
+            zIndex: 1
         });
 
         await writeFile(svgPath, content);
@@ -130,7 +131,7 @@ const files = [
     'africa',
 ];
 
-const jobs = [];
+const jobs: any[] = [];
 files.forEach(code => {
     jobs.push(new CountriesParser(code).parse());
 });
