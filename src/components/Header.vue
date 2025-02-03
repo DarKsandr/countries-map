@@ -18,7 +18,7 @@
   const collectModal = useTemplateRef('collect-modal');
   function collect(){
     if(store.isStart){
-      confirmModal(collectModal);
+      confirmModal(collectModal.value);
     } else {
       store.collect = true;
     }
@@ -27,7 +27,7 @@
   const shuffleModal = useTemplateRef('shuffle-modal');
   function shuffle(){
     if(store.isStart){
-      confirmModal(shuffleModal);
+      confirmModal(shuffleModal.value);
     } else {
       store.shuffle = true;
     }
@@ -46,11 +46,11 @@
       </select>
     </div>
 
-    <div class="h4 col-6 d-none d-lg-flex justify-content-center align-items-center">
+    <div class="h4 col-lg-3 d-none d-lg-flex justify-content-center align-items-center">
       <div v-if="countryEnter">{{countryEnter.name[store.language as keyof Language]}}</div>
     </div>
 
-    <div class="d-flex gap-3 col-lg-4 col-md-12 align-items-center">
+    <div class="d-flex gap-3 col-lg-7 col-md-12 align-items-center">
       <zoom-input :disabled="isDisabled" />
 <!--      <select v-model="store.language">-->
 <!--        <option value="ru">Русский</option>-->
