@@ -10,7 +10,7 @@
 </script>
 
 <template>
-  <input type="number" class="form-control" placeholder="Масштаб" @change="changeZoom" :value="store.zoom" min="1" max="10" />
+  <input type="number" class="form-control" placeholder="Масштаб" @change="changeZoom" :value="store.zoom" min="0.5" max="10" step="0.1" />
 </template>
 
 <style scoped>

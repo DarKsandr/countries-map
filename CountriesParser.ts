@@ -13,6 +13,7 @@ class CountriesParser {
 
     code: string;
     zoom: number;
+    warning: boolean;
     exceptions: [];
     folder: string;
     itemsFolder: string;
@@ -27,6 +28,7 @@ class CountriesParser {
         this.itemsFolder = this.folder + `items/`;
        
         this.exceptions = item?.exceptions ?? [];
+        this.warning = item?.warning ?? true;
     }
 
     generateSvg(properties: any, svg_attr = ''){
@@ -87,10 +89,10 @@ class CountriesParser {
             const rootSvg = SVG(this.generateSvg(properties));
             const box = rootSvg.bbox();
             if(box.width > 200 || box.width < 3 || box.height > 200 || box.height < 3){
-                this.warning('Warning size', properties, box);
+                this.warningSend('Warning size', properties, box);
             }
             if(box.x === 0 || box.y === 0) {
-                this.warning('Warning coordinate', properties, box);
+                this.warningSend('Warning coordinate', properties, box);
             }
 
             jobs.push(this.createSvg(properties, box));
@@ -101,11 +103,13 @@ class CountriesParser {
         await this.createConfig();
     }
 
-    warning(text: string, properties: any, box: Box){
-        const data = Object.assign({}, properties, box);
-        // const dataText = '';
-        const dataText = `Data: ` + JSON.stringify(data);
-        console.warn(`${text}. Map: "${this.code}"; Code: "${properties.id}"; ${dataText}\n`);
+    warningSend(text: string, properties: any, box: Box){
+        if(this.warning){
+            const data = Object.assign({}, properties, box);
+            // const dataText = '';
+            const dataText = `Data: ` + JSON.stringify(data);
+            console.warn(`${text}. Map: "${this.code}"; Code: "${properties.id}"; ${dataText}\n`);
+        }
     }
 
     async makeDir(){
@@ -146,6 +150,8 @@ console.log('Start work', new Date());
 const files = [
     {path: './src/countries/africa.svg', zoom: 3, exceptions: ['KI', 'PS', 'KW', 'QA', 'DJ', 'YT', 'ST', 'SC', 'RE', 'MU', 'KM', 'BH', 'JU', 'GO', 'GM', 'GI', 'CV']},
     {path: './src/countries/usa.svg', exceptions: ['US-AK', 'US-HI', 'US-DC']},
+    {path: './src/countries/australia.svg', zoom: 1.5, warning: false},
+    {path: './src/countries/luxembourg.svg', zoom: 0.8, warning: false},
 ];
 
 await rm(ROOT, { recursive: true, force: true });
