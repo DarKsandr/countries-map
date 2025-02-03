@@ -4,6 +4,7 @@ services:
     image: node:23.7-slim
     ports:
       - "5173:5173"
+      - "4173:4173"
     volumes:
       - ./:/var/www/countries-map
     working_dir: /var/www/countries-map
