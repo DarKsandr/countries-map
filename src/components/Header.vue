@@ -4,7 +4,7 @@
   import type Language from "../interfaces/Language.ts";
   import {useAppStore} from "../stores/appStore.ts";
   import ModalConfirm from "./ModalConfirm.vue";
-  import {confirmModal} from "../utils.ts";
+  import {modal} from "../utils.ts";
   import ZoomInput from "./ZoomInput.vue";
   import {computed, useTemplateRef} from "vue";
   import Timer from "./Timer.vue";
@@ -18,7 +18,7 @@
   const collectModal = useTemplateRef('collect-modal');
   function collect(){
     if(store.isStart){
-      confirmModal(collectModal.value);
+      modal(collectModal.value);
     } else {
       store.collect = true;
     }
@@ -27,7 +27,7 @@
   const shuffleModal = useTemplateRef('shuffle-modal');
   function shuffle(){
     if(store.isStart){
-      confirmModal(shuffleModal.value);
+      modal(shuffleModal.value);
     } else {
       store.shuffle = true;
     }
@@ -60,8 +60,8 @@
         <button class="btn btn-primary" @click="collect" :disabled="isDisabled">Собрать</button>
         <button class="btn btn-dark" @click="shuffle" :disabled="isDisabled">Размешать</button>
         <button class="btn btn-warning" @click="store.check = true" :disabled="isDisabled">Проверить</button>
-        <button class="btn btn-success" v-if="!store.isStart" @click="confirmModal($refs['start-modal'])" :disabled="isDisabled">Старт</button>
-        <button class="btn btn-danger" v-else @click="confirmModal($refs['finish-modal'])" :disabled="isDisabled">Закончить</button>
+        <button class="btn btn-success" v-if="!store.isStart" @click="modal($refs['start-modal'])" :disabled="isDisabled">Старт</button>
+        <button class="btn btn-danger" v-else @click="modal($refs['finish-modal'])" :disabled="isDisabled">Закончить</button>
       </div>
       <timer v-if="store.isStart" />
     </div>

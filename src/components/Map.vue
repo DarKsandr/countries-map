@@ -10,7 +10,9 @@
   const store = useAppStore();
 
   const emit = defineEmits<{
-    countryEnter: [item: CountryItem|null]
+    countryEnter: [item: CountryItem|null],
+    collected: [],
+    notCollected: [],
   }>();
 
   const mapContainer = useTemplateRef('map-container');
@@ -93,6 +95,30 @@
     if(value){
       store.collect = false;
       data.value = deepClone(dataSave.value);
+    }
+  });
+
+  watch(() => store.check, (value) => {
+    if(value){
+      store.check = false;
+      const items: CountryItem[] = data.value.items;
+      const itemsSave: CountryItem[] = dataSave.value.items;
+
+      let flag = true;
+
+      items.forEach((item, key) => {
+        const itemSave = itemsSave[key];
+        if(item.coordinate.x !== itemSave.coordinate.x || item.coordinate.y !== itemSave.coordinate.y){
+          flag = false;
+        }
+      });
+
+      if(flag){
+        emit('collected');
+        return;
+      }
+
+      emit('notCollected');
     }
   });
 </script>

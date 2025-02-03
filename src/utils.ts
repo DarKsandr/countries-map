@@ -9,12 +9,21 @@ export function deepClone(obj: any){
     return JSON.parse(JSON.stringify(obj));
 }
 
-export function confirmModal(res: any){
+function getModalElement(res: any){
     if(!res){
-        console.warn('Res is null!');
-        return;
+        throw new Error('Res is empty!');
     }
-    const element: HTMLElement = res instanceof HTMLElement ? res : res?.modal;
+    if(res instanceof HTMLElement){
+        return res;
+    }
+    if(res?.modal){
+        return getModalElement(res.modal);
+    }
+    throw new Error('Res not found modal element!');
+}
+
+export function modal(res: any){
+    const element: HTMLElement = getModalElement(res);
     const modal = new Modal(element);
     modal.show();
 
