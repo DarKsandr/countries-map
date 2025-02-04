@@ -6,7 +6,6 @@
   import {onMounted, ref, useTemplateRef, watch} from "vue";
   import {deepClone, randomInteger} from "../utils.ts";
   import {useAppStore} from "../stores/appStore.ts";
-import type Coordinate from "../interfaces/Coordinate.ts";
 
   const store = useAppStore();
 
