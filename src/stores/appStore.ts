@@ -1,11 +1,13 @@
 import {defineStore} from "pinia";
 import Countries from "../countries";
 import type Country from "../interfaces/Country";
+import { ROUND, ZOOM } from "../const";
 
 export const useAppStore = defineStore('app', {
     state: () => ({
         code: null as null|string,
-        zoom: 2,
+        zoom: ZOOM,
+        round: ROUND,
         language: 'ru',
         shuffle: false,
         collect: false,

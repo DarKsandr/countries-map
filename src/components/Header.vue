@@ -8,6 +8,7 @@
   import ZoomInput from "./ZoomInput.vue";
   import {computed} from "vue";
   import Timer from "./Timer.vue";
+  import RoundInput from "./RoundInput.vue";
 
   const store = useAppStore();
 
@@ -34,12 +35,13 @@
       </select>
     </div>
 
-    <div class="h4 col-lg-3 d-none d-lg-flex justify-content-center align-items-center country-enter">
+    <div class="h4 col-lg-4 d-none d-lg-flex justify-content-center align-items-center country-enter">
       <div v-if="countryEnter">{{countryEnter.name[store.language as keyof Language]}}</div>
     </div>
 
-    <div class="d-flex gap-3 col-lg-7 col-md-12 align-items-center">
-      <zoom-input :disabled="isDisabled" />
+    <div class="d-flex gap-3 col-lg-6 col-md-12 align-items-center">
+      <ZoomInput :disabled="isDisabled" />
+      <RoundInput :disabled="isDisabled" />
 <!--      <select v-model="store.language">-->
 <!--        <option value="ru">Русский</option>-->
 <!--        <option value="en">English</option>-->
@@ -51,7 +53,7 @@
         <button class="btn btn-success" v-if="!store.isStart" @click="modal($refs['start-modal'])" :disabled="isDisabled">Старт</button>
         <button class="btn btn-danger" v-else @click="modal($refs['finish-modal'])" :disabled="isDisabled">Закончить</button>
       </div>
-      <timer v-if="store.isStart" />
+      <Timer v-if="store.isStart" />
     </div>
 
     <div class="h4 col-12 d-lg-none d-xl-none d-xl-flex justify-content-center align-items-center country-enter text-center">

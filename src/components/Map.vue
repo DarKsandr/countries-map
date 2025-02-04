@@ -6,6 +6,7 @@
   import {onMounted, ref, useTemplateRef, watch} from "vue";
   import {deepClone, randomInteger} from "../utils.ts";
   import {useAppStore} from "../stores/appStore.ts";
+import type Coordinate from "../interfaces/Coordinate.ts";
 
   const store = useAppStore();
 
@@ -98,27 +99,38 @@
     }
   });
 
+  function compareCoordinate(c1: number, c2: number){
+    const round = store.round;
+    if(c1 === c2){
+      return true;
+    }
+    if(c2 + round >= c1 && c2 - round <= c1){
+      return true;
+    }
+    return false;
+  }
+
   watch(() => store.check, (value) => {
     if(value){
       store.check = false;
       const items: CountryItem[] = data.value.items;
       const itemsSave: CountryItem[] = dataSave.value.items;
 
-      let flag = true;
-
-      items.forEach((item, key) => {
-        const itemSave = itemsSave[key];
-        if(item.coordinate.x !== itemSave.coordinate.x || item.coordinate.y !== itemSave.coordinate.y){
-          flag = false;
+      const itemFirst = items[0];
+      const itemSaveFirst = itemsSave[0];
+      const coordinate = {x: itemFirst.coordinate.x - itemSaveFirst.coordinate.x, y: itemFirst.coordinate.y - itemSaveFirst.coordinate.y};
+      
+      for(let i = 0; i < items.length; i++){
+        const item = items[i];
+        const itemSave = itemsSave[i];
+        const coordinateDiff = {x: item.coordinate.x - coordinate.x, y: item.coordinate.y - coordinate.y};
+        if(!compareCoordinate(coordinateDiff.x, itemSave.coordinate.x) && !compareCoordinate(coordinateDiff.y, itemSave.coordinate.y)){
+          emit('notCollected');
+          return;
         }
-      });
-
-      if(flag){
-        emit('collected');
-        return;
       }
 
-      emit('notCollected');
+      emit('collected');
     }
   });
 </script>
