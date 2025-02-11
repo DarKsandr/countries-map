@@ -67,61 +67,70 @@
 </script>
 
 <template>
-  <div class="row sticky-top bg-white border-bottom border-2 pt-4 pb-lg-4 gap-3 gap-lg-0 align-items-center">
-    <div class="col-lg-3 col-md-12">
-      <v-select 
-          :options="optionsCountry" 
-          v-model="store.code"  
-          @option:selected="store.changeZoom" 
-          id="countrySelect" 
-          :aria-label="$t('header.country')" 
-          :disabled="isStartOrPause"
-          :reduce="(country: Country)  => country.code"
-        />
-    </div>
+  <div class="sticky-top bg-white border-bottom border-2 pt-4 pb-lg-4 gap-3 gap-lg-0 align-items-center">
+    <div class="row align-items-center">
+      <div class="col-lg-3 col-md-12">
+        <v-select 
+            :options="optionsCountry" 
+            v-model="store.code"  
+            @option:selected="store.changeZoom" 
+            id="countrySelect" 
+            :aria-label="$t('header.country')" 
+            :disabled="isStartOrPause"
+            :reduce="(country: Country)  => country.code"
+          />
+      </div>
 
-    <div class="h4 col-lg-3 d-none d-lg-flex justify-content-center align-items-center country-enter">
-      <div v-if="countryEnter">{{countryEnter.name[store.language as keyof Language]}}</div>
-    </div>
+      <div class="h4 col-lg-5 d-none d-lg-flex justify-content-center align-items-center country-enter">
+        <div v-if="countryEnter">{{countryEnter.name[store.language as keyof Language]}}</div>
+      </div>
 
-    <div class="d-flex gap-3 col-lg-6 col-md-12 align-items-center">
-      <div class="input-group">
-        <div class="form-floating">
-          <ZoomInput :disabled="isDisabled" id="ZoomInput" :placeholder="$t('header.scale')" />
-          <label for="ZoomInput">{{ $t('header.scale') }}</label>
-        </div>
-        <div class="form-floating">
-          <RoundInput :disabled="isDisabled || isStartOrPause" id="RoundInput" :placeholder="$t('header.help')" />
-          <label for="RoundInput">{{ $t('header.help') }}</label>
-        </div>
-        <div class="form-floating">
-          <select v-model="store.language" @change="changeLanguage" class="form-control" id="LanguageSelect" :aria-label="$t('header.language')">
-            <option v-for="lang in language" :value="lang.code">{{ lang.name }}</option>
-           </select>
-          <label for="LanguageSelect">{{ $t('header.language') }}</label>
+      <div class="col-lg-4 col-md-12">
+        <div class="input-group">
+          <div class="form-floating">
+            <ZoomInput :disabled="isDisabled" id="ZoomInput" :placeholder="$t('header.scale')" />
+            <label for="ZoomInput">{{ $t('header.scale') }}</label>
+          </div>
+          <div class="form-floating">
+            <RoundInput :disabled="isDisabled || isStartOrPause" id="RoundInput" :placeholder="$t('header.help')" />
+            <label for="RoundInput">{{ $t('header.help') }}</label>
+          </div>
+          <div class="form-floating">
+            <select v-model="store.language" @change="changeLanguage" class="form-control" id="LanguageSelect" :aria-label="$t('header.language')">
+              <option v-for="lang in language" :value="lang.code">{{ lang.name }}</option>
+             </select>
+            <label for="LanguageSelect">{{ $t('header.language') }}</label>
+          </div>
         </div>
       </div>
-      <div class="btn-group">
-        <button class="btn btn-primary" @click="store.collect = true" :disabled="isDisabledSystem">{{ $t('header.collect') }}</button>
-        <button class="btn btn-dark" @click="store.shuffle = true" :disabled="isDisabledSystem">{{ $t('header.stir') }}</button>
-        <button class="btn btn-warning" @click="store.check = true" :disabled="isDisabled">{{ $t('header.check') }}</button>
-      </div>
-      <div class="btn-group">
-        <button class="btn btn-success" @click="startCheck" :disabled="isDisabled || isStart">
-          <i class="bi bi-caret-right-fill"></i>
-        </button>
-        <button class="btn btn-warning" @click="pause" :disabled="isDisabled || !isStart">
-          <i class="bi bi-pause-fill"></i>
-        </button>
-        <button class="btn btn-danger" @click="modal($refs['finish-modal'])" :disabled="isDisabled || !isStartOrPause">
-          <i class="bi bi-stop-fill"></i>
-        </button>
-      </div>
-      <Timer v-model="timer" />
     </div>
 
-    <div class="h4 col-12 d-lg-none d-xl-none d-xl-flex justify-content-center align-items-center country-enter text-center">
-      <div v-if="countryEnter">{{countryEnter.name[store.language as keyof Language]}}</div>
+    <div class="row mt-3 align-items-center">
+      <div class="col-10">
+        <div class="btn-group">
+          <button class="btn btn-primary" @click="store.collect = true" :disabled="isDisabledSystem">{{ $t('header.collect') }}</button>
+          <button class="btn btn-dark" @click="store.shuffle = true" :disabled="isDisabledSystem">{{ $t('header.stir') }}</button>
+          <button class="btn btn-warning" @click="store.check = true" :disabled="isDisabled">{{ $t('header.check') }}</button>
+          <button class="btn btn-success" @click="startCheck" :disabled="isDisabled || isStart">
+            <i class="bi bi-caret-right-fill"></i>
+          </button>
+          <button class="btn btn-warning" @click="pause" :disabled="isDisabled || !isStart">
+            <i class="bi bi-pause-fill"></i>
+          </button>
+          <button class="btn btn-danger" @click="modal($refs['finish-modal'])" :disabled="isDisabled || !isStartOrPause">
+            <i class="bi bi-stop-fill"></i>
+          </button>
+        </div>
+      </div>
+      <div class="col-2">
+        <Timer v-model="timer" />
+      </div>
+    </div>
+
+    <div class="row align-items-center">
+      <div class="h4 col-12 d-lg-none d-xl-none d-xl-flex justify-content-center align-items-center country-enter text-center">
+        <div v-if="countryEnter">{{countryEnter.name[store.language as keyof Language]}}</div>
+      </div>
     </div>
   </div>
 
