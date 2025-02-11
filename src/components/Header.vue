@@ -68,8 +68,8 @@
 
 <template>
   <div class="sticky-top bg-white border-bottom border-2 pt-4 pb-lg-4 gap-3 gap-lg-0 align-items-center">
-    <div class="row align-items-center">
-      <div class="col-lg-3 col-md-12">
+    <div class="row align-items-center gap-3">
+      <div class="col">
         <v-select 
             :options="optionsCountry" 
             v-model="store.code"  
@@ -81,11 +81,11 @@
           />
       </div>
 
-      <div class="h4 col-lg-5 d-none d-lg-flex justify-content-center align-items-center country-enter">
+      <div class="h4 col d-none d-lg-flex justify-content-center align-items-center country-enter">
         <div v-if="countryEnter">{{countryEnter.name[store.language as keyof Language]}}</div>
       </div>
 
-      <div class="col-lg-4 col-md-12">
+      <div class="col">
         <div class="input-group">
           <div class="form-floating">
             <ZoomInput :disabled="isDisabled" id="ZoomInput" :placeholder="$t('header.scale')" />
@@ -105,12 +105,16 @@
       </div>
     </div>
 
-    <div class="row mt-3 align-items-center">
-      <div class="col-10">
+    <div class="row mt-3 align-items-center gap-3 justify-content-between">
+      <div class="col">
         <div class="btn-group">
           <button class="btn btn-primary" @click="store.collect = true" :disabled="isDisabledSystem">{{ $t('header.collect') }}</button>
           <button class="btn btn-dark" @click="store.shuffle = true" :disabled="isDisabledSystem">{{ $t('header.stir') }}</button>
           <button class="btn btn-warning" @click="store.check = true" :disabled="isDisabled">{{ $t('header.check') }}</button>
+        </div>
+      </div>
+      <div class="col d-flex align-items-center justify-content-end gap-3">
+        <div class="btn-group">
           <button class="btn btn-success" @click="startCheck" :disabled="isDisabled || isStart">
             <i class="bi bi-caret-right-fill"></i>
           </button>
@@ -121,8 +125,6 @@
             <i class="bi bi-stop-fill"></i>
           </button>
         </div>
-      </div>
-      <div class="col-2">
         <Timer v-model="timer" />
       </div>
     </div>
