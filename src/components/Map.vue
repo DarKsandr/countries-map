@@ -166,5 +166,7 @@
   .map-item {
     position: absolute;
     z-index: 1;
+    touch-action: none;
+    user-select: none;
   }
 </style>
