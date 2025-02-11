@@ -10,11 +10,11 @@ export default ({ mode }: {mode: string}) => {
     base: process.env.VITE_BASE_URL,
     server: {
       host: true,
-      port: 5173
+      port: +(process.env.VITE_PORT ?? 5173)
     },
     preview: {
       host: true,
-      port: 4173
+      port: +(process.env.VITE_PREVIEW_PORT ?? 4173)
     }
   })
 };
