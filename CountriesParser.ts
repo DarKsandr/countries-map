@@ -6,6 +6,7 @@ import type Country from "./src/interfaces/Country";
 import translate from "translate";
 import type Language from "./src/interfaces/Language";
 import path from 'node:path';
+import language from './src/language';
 
 const ROOT = `./src/countries/files/`;
 
@@ -50,10 +51,15 @@ class CountriesParser {
 
     async getLanguage(value: string): Promise<Language>
     {
-        return {
-            en: this.firstLetterToUppercase(value),
-            ru: this.firstLetterToUppercase(await translate(value, 'ru')),
-        }
+        const res = {};
+        language.forEach(async item => {
+            if(item.code === 'en'){
+                res[item.code] = this.firstLetterToUppercase(value);
+            } else {
+                res[item.code] = this.firstLetterToUppercase(await translate(value, item.code));
+            }
+        });
+        return res as Language;
     }
 
     async parse(){

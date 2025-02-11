@@ -1,23 +1,28 @@
 <script setup lang="ts">
-  import {computed, ref} from "vue";
+  import {computed, ref, watch} from "vue";
+import TimerEnum from "../enums/TimerEnum";
+
+  const status = defineModel();
 
   const timer = ref(0);
-  let timerId: any;
+  let timerId: any = null;
 
-  function init(value: boolean){
-    timer.value = 0;
-    if(value){
+  watch(status, (newStatus) => {
+    if(newStatus === TimerEnum.START && timerId === null){
       timerId = setInterval(() => {
-        timer.value++;
+        if(status.value !== TimerEnum.PAUSE){
+          timer.value++;
+        }
       }, 1000);
-    } else {
+    }
+    if(newStatus === TimerEnum.STOP){
       if(timerId){
         clearInterval(timerId);
+        timerId = null;
       }
+      timer.value = 0;
     }
-  }
-
-  init(true);
+  });
 
   const hour = computed(() => {
     const sec = timer.value;

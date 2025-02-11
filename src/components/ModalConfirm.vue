@@ -23,8 +23,8 @@ defineEmits(['confirm', 'cancel']);
       <slot />
     </template>
     <template #footer>
-      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="$emit('cancel')">отмена</button>
-      <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="$emit('confirm')">ок</button>
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="$emit('cancel')">{{ $t('modal.confirm.cancel') }}</button>
+      <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="$emit('confirm')">{{ $t('modal.confirm.confirm') }}</button>
     </template>
   </modal-base>
 </template>

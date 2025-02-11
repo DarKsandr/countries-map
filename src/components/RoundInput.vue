@@ -9,7 +9,7 @@
 </script>
 
 <template>
-  <input type="number" class="form-control" placeholder="Помощь" @change="changeRound" :value="store.round" />
+  <input type="number" class="form-control" @change="changeRound" :value="store.round" />
 </template>
 
 <style scoped>

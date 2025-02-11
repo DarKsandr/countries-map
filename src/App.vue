@@ -25,12 +25,12 @@ const countryEnter = ref<CountryItem|null>(null);
           @collected="modal($refs['modal-collected'])"
           @not-collected="modal($refs['modal-not-collected'])"
       />
-      <ModalInfo title="Поздравляем!" ref="modal-collected">
-        Карта собрана
+      <ModalInfo :title="$t('app.congratulation')" ref="modal-collected">
+        {{ $t('app.mapIsAssembled') }}
       </ModalInfo>
 
-      <ModalInfo title="Ошибка!" ref="modal-not-collected">
-        Карта собрана не верно
+      <ModalInfo :title="$t('app.error')" ref="modal-not-collected">
+        {{ $t('app.mapIsNotAssembled') }}
       </ModalInfo>
     </div>
 </template>
