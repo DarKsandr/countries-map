@@ -68,7 +68,7 @@
 
 <template>
   <div class="sticky-top bg-white border-bottom border-2 pt-4 pb-lg-4 gap-3 gap-lg-0 align-items-center">
-    <div class="row align-items-center gap-3">
+    <div class="row align-items-center">
       <div class="col">
         <v-select 
             :options="optionsCountry" 
@@ -113,7 +113,7 @@
           <button class="btn btn-warning" @click="store.check = true" :disabled="isDisabled">{{ $t('header.check') }}</button>
         </div>
       </div>
-      <div class="col d-flex align-items-center justify-content-end gap-3">
+      <div class="col d-flex align-items-center justify-content-sm-end gap-3">
         <div class="btn-group">
           <button class="btn btn-success" @click="startCheck" :disabled="isDisabled || isStart">
             <i class="bi bi-caret-right-fill"></i>
@@ -129,7 +129,7 @@
       </div>
     </div>
 
-    <div class="row align-items-center">
+    <div class="row align-items-center mt-3">
       <div class="h4 col-12 d-lg-none d-xl-none d-xl-flex justify-content-center align-items-center country-enter text-center">
         <div v-if="countryEnter">{{countryEnter.name[store.language as keyof Language]}}</div>
       </div>
