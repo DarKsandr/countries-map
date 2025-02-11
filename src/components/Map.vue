@@ -25,6 +25,8 @@
   }
 
   interact('.map-item').draggable({
+    // enable autoScroll
+    autoScroll: true,
     listeners: {
       start(){
         if(store.isMove){
@@ -46,7 +48,8 @@
     },
     modifiers: [
       interact.modifiers.restrictRect({
-        restriction: 'parent' 
+        restriction: 'parent',
+        endOnly: true
       })
     ]
   });
