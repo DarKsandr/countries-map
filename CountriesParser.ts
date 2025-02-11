@@ -8,6 +8,7 @@ import type Language from "./src/interfaces/Language";
 import path from 'node:path';
 import language from './src/language';
 import files from './src/countries/map.json';
+import LanguageDetect from 'languagedetect';
 
 const ROOT = `./src/countries/files/`;
 
@@ -62,29 +63,39 @@ class CountriesParser {
 
     fixCountryName(value: string) {
         let newValue = value;
+        newValue = newValue.toLowerCase();
         newValue = this.firstLetterToUppercase(newValue);
         newValue = this.fixDash(newValue);
         return newValue;
     }
 
-    async getLanguage(value: string): Promise<Language>
+    async getLanguage(value: string, fix: boolean = false): Promise<Language>
     {
         const res = {};
-        const en = this.fixCountryName(value);
+        const name = this.fixCountryName(value);
+        const lang = this.checkLanguage(name, fix);
         for(let i = 0; i < language.length; i++){
             const item = language[i];
-            if(item.code === 'en'){
-                res[item.code] = en;
-            } else {
-                try {
-                    res[item.code] = this.fixCountryName(await translate(value, item.code));
-                } catch (error){
-                    console.error(`Fail translate: ${item.code}`, error);
-                    res[item.code] = en;
-                }
+            try {
+                const translateName = lang === item.code ? value : await translate(value, { from: lang, to: item.code });
+                res[item.code] = this.fixCountryName(translateName);
+            } catch (error){
+                console.error(`Fail translate: ${item.code}`, error);
+                res[item.code] = name;
             }
         }
         return res as Language;
+    }
+
+    checkLanguage(value: string, fix: boolean){
+        if(fix && this.name === 'russia'){
+            return 'ru';
+        }
+        const langs = lngDetector.detect(value, 1);
+        if(langs && langs[0] && langs[0][0]){
+            return langs[0][0];
+        }
+        return "en";
     }
 
     async parse(){
@@ -159,7 +170,7 @@ class CountriesParser {
         const svgPath = this.itemsFolder +  `${properties.title}.svg`;
 
         this.config.items.push({
-            name: await this.getLanguage(properties.title),
+            name: await this.getLanguage(properties.title, true),
             code: properties.id,
             image: svgPath,
             width,
@@ -179,6 +190,9 @@ class CountriesParser {
 const window = createSVGWindow();
 const { document } = window;
 registerWindow(window, document);
+
+const lngDetector = new LanguageDetect();
+lngDetector.setLanguageType('iso2');
 
 console.log('Start work', new Date());
 
