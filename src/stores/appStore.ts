@@ -12,6 +12,7 @@ export const useAppStore = defineStore('app', {
         shuffle: false,
         collect: false,
         check: false,
+        isMove: true,
     }),
     getters: {
         country(): null|Country

@@ -27,16 +27,20 @@
   interact('.map-item').draggable({
     listeners: {
       start(){
-        data.value.items.forEach((item: CountryItem) => {
-          item.zIndex = 1;
-        });
+        if(store.isMove){
+          data.value.items.forEach((item: CountryItem) => {
+            item.zIndex = 1;
+          });
+        }
       },
       move (event) {
-        const item = findItem(event.target);
-        if(item){
-          item.coordinate.x += event.dx / store.zoom;
-          item.coordinate.y += event.dy / store.zoom;
-          item.zIndex = 2;
+        if(store.isMove){
+          const item = findItem(event.target);
+          if(item){
+            item.coordinate.x += event.dx / store.zoom;
+            item.coordinate.y += event.dy / store.zoom;
+            item.zIndex = 2;
+          }
         }
       },
     },

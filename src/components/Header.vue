@@ -33,6 +33,7 @@
   function start(){
     store.shuffle = true;
     timer.value = TimerEnum.START;
+    store.isMove = true;
   }
 
   function startCheck(){
@@ -43,8 +44,14 @@
     }
   }
 
+  function pause(){
+    timer.value = TimerEnum.PAUSE;
+    store.isMove = false;
+  }
+
   function stop(){
     timer.value = TimerEnum.STOP;
+    store.isMove = true;
   }
 
   function changeLanguage(e: Event){
@@ -57,7 +64,7 @@
   <div class="row sticky-top bg-white border-bottom border-2 pt-4 pb-lg-4 gap-3 gap-lg-0 align-items-center">
     <div class="col-lg-2 col-md-12">
       <div class="form-floating">
-        <select v-model="store.code" class="form-select" @change="store.changeZoom" id="countrySelect" :aria-label="$t('header.country')">
+        <select v-model="store.code" class="form-select" @change="store.changeZoom" id="countrySelect" :aria-label="$t('header.country')" :disabled="isStartOrPause">
           <option v-for="item in Countries" :key="item.code" :value="item.code">
             {{item.name[store.language as keyof Language]}}
           </option>
@@ -77,7 +84,7 @@
           <label for="ZoomInput">{{ $t('header.scale') }}</label>
         </div>
         <div class="form-floating">
-          <RoundInput :disabled="isDisabled" id="RoundInput" :placeholder="$t('header.help')" />
+          <RoundInput :disabled="isDisabled || isStartOrPause" id="RoundInput" :placeholder="$t('header.help')" />
           <label for="RoundInput">{{ $t('header.help') }}</label>
         </div>
         <div class="form-floating">
@@ -96,7 +103,7 @@
         <button class="btn btn-success" @click="startCheck" :disabled="isDisabled || isStart">
           <i class="bi bi-caret-right-fill"></i>
         </button>
-        <button class="btn btn-warning" @click="timer = TimerEnum.PAUSE" :disabled="isDisabled || !isStart">
+        <button class="btn btn-warning" @click="pause" :disabled="isDisabled || !isStart">
           <i class="bi bi-pause-fill"></i>
         </button>
         <button class="btn btn-danger" @click="modal($refs['finish-modal'])" :disabled="isDisabled || !isStartOrPause">
