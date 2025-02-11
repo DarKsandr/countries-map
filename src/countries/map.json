@@ -1,0 +1,908 @@
+[
+    {
+        "path": "./src/countries/svg/africa.svg",
+        "zoom": 3,
+        "warning": true,
+        "exceptions": ["KI", "PS", "KW", "QA", "DJ", "YT", "ST", "SC", "RE", "MU", "KM", "BH", "JU", "GO", "GM", "GI", "CV"]
+    },
+    {
+        "path": "./src/countries/svg/andorra.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/angola.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/argentina.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/armenia.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/australia.svg",
+        "zoom": 1.5,
+        "warning": false,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/austria.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/azerbaijan.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/bahamas.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/bahrain.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/bangladesh.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/belarus.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/belgium.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/bhutan.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/bolivia.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/bosnia-herzegovina-1.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/bosnia-herzegovina-2.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/botswana.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/brazil.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/brunei-darussalam.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/bulgaria.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/burkina-faso.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/burundi.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/cambodia.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/cameroon.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/canada.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/cape-verde.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/central-african-republic.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/chad.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/chile-2.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/chile.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/china.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/colombia.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/congo-dr.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/congo.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/costa-rica.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/croatia.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/cuba.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/cyprus.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/czech-republic.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/denmark.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/djibouti.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/dominican-republic.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/ecuador.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/egypt.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/el-salvador.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/estonia.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/ethiopia.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/faroeIslands.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/finland.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/france-departments.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/france-new.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/france.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/georgia.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/germany.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/greece.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/guatemala.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/guinea.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/haiti.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/honduras.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/hong-kong.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/hungary.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/iceland.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/india.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/indonesia.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/iran.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/iraq.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/ireland.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/israel.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/italy.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/ivory-coast.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/jamaica.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/japan.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/kazakhstan.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/kenya.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/kosovo.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/kyrgyzstan.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/laos.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/latvia.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/liechtenstein.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/lithuania.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/luxembourg.svg",
+        "zoom": 0.8,
+        "warning": false,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/macedonia.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/malaysia.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/mali.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/malta.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/mexico.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/moldova.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/montenegro.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/morocco.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/mozambique.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/myanmar.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/namibia.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/nepal.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/netherlands.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/new-zealand.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/nicaragua.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/nigeria.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/norway.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/oman.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/pakistan.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/palestine.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/panama.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/paraguay.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/peru.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/philippines.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/poland.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/portugal-regions.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/portugal.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/puerto-rico.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/qatar.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/romania.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/russia.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/rwanda.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/san-marino.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/saudi-arabia.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/serbia-without-kosovo.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/serbia.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/sierra-leone.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/singapore.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/slovakia.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/slovenia.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/south-africa-2.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/south-africa.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/south-korea.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/spain-provinces.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/spain.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/sri-lanka.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/sudan.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/sweden.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/switzerland.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/syria.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/taiwan.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/tajikistan.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/thailand.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/turkey.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/uganda.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/ukraine.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/united-arab-emirates.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/united-kingdom-counties.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/united-kingdom.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/uruguay.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/usa.svg",
+        "zoom": 2,
+        "warning": true,
+        "exceptions": ["US-AK", "US-HI", "US-DC"]
+    },
+    {
+        "path": "./src/countries/svg/uzbekistan.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/venezuela.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/vietnam-with-islands.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/vietnam.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/world.svg",
+        "zoom": 1,
+        "warning": false,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/yemen.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/zambia.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    },
+    {
+        "path": "./src/countries/svg/zimbabwe.svg",
+        "zoom": 1,
+        "warning": true,
+        "exceptions": []
+    }
+]

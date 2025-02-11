@@ -7,6 +7,7 @@ import translate from "translate";
 import type Language from "./src/interfaces/Language";
 import path from 'node:path';
 import language from './src/language';
+import files from './src/countries/map.json';
 
 const ROOT = `./src/countries/files/`;
 
@@ -52,13 +53,20 @@ class CountriesParser {
     async getLanguage(value: string): Promise<Language>
     {
         const res = {};
-        language.forEach(async item => {
+        const en = this.firstLetterToUppercase(value);
+        for(let i = 0; i < language.length; i++){
+            const item = language[i];
             if(item.code === 'en'){
-                res[item.code] = this.firstLetterToUppercase(value);
+                res[item.code] = en;
             } else {
-                res[item.code] = this.firstLetterToUppercase(await translate(value, item.code));
+                try {
+                    res[item.code] = this.firstLetterToUppercase(await translate(value, item.code));
+                } catch (error){
+                    console.error(`Fail translate: ${item.code}`, error);
+                    res[item.code] = en;
+                }
             }
-        });
+        }
         return res as Language;
     }
 
@@ -92,16 +100,20 @@ class CountriesParser {
                 return;
             }
 
-            const rootSvg = SVG(this.generateSvg(properties));
-            const box = rootSvg.bbox();
-            if(box.width > 200 || box.width < 3 || box.height > 200 || box.height < 3){
-                this.warningSend('Warning size', properties, box);
+            try {
+                const rootSvg = SVG(this.generateSvg(properties));
+                const box = rootSvg.bbox();
+                if(box.width > 200 || box.width < 3 || box.height > 200 || box.height < 3){
+                    this.warningSend('Warning size', properties, box);
+                }
+                if(box.x === 0 || box.y === 0) {
+                    this.warningSend('Warning coordinate', properties, box);
+                }
+    
+                jobs.push(this.createSvg(properties, box));
+            } catch (error) {
+                this.warningSend(`Error: ${error.message}`, properties);
             }
-            if(box.x === 0 || box.y === 0) {
-                this.warningSend('Warning coordinate', properties, box);
-            }
-
-            jobs.push(this.createSvg(properties, box));
         });
 
         await Promise.all(jobs);
@@ -109,7 +121,7 @@ class CountriesParser {
         await this.createConfig();
     }
 
-    warningSend(text: string, properties: any, box: Box){
+    warningSend(text: string, properties: any, box: Box|object = {}){
         if(this.warning){
             const data = Object.assign({}, properties, box);
             // const dataText = '';
@@ -152,13 +164,6 @@ const { document } = window;
 registerWindow(window, document);
 
 console.log('Start work', new Date());
-
-const files = [
-    {path: './src/countries/africa.svg', zoom: 3, exceptions: ['KI', 'PS', 'KW', 'QA', 'DJ', 'YT', 'ST', 'SC', 'RE', 'MU', 'KM', 'BH', 'JU', 'GO', 'GM', 'GI', 'CV']},
-    {path: './src/countries/usa.svg', exceptions: ['US-AK', 'US-HI', 'US-DC']},
-    {path: './src/countries/australia.svg', zoom: 1.5, warning: false},
-    {path: './src/countries/luxembourg.svg', zoom: 0.8, warning: false},
-];
 
 await rm(ROOT, { recursive: true, force: true });
 await mkdir(ROOT);

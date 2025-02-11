@@ -1,12 +1,15 @@
-import type Country from "../interfaces/Country.ts";
-import Africa from './files/africa/config.json';
-import USA from './files/usa/config.json';
-import Australia from './files/australia/config.json';
-import Luxembourg from './files/luxembourg/config.json';
+import type Country from "../interfaces/Country";
 
-export default <Array<Country>>[
-    Africa,
-    USA,
-    Australia,
-    Luxembourg,
-];
+const obj = import.meta.glob('./files/**/config.json', { eager: true });
+const configs: Country[] = [];
+for(const key in obj){
+    const country: any = obj[key];
+    configs.push({
+        name: country.name,
+        code: country.code,
+        zoom: country.zoom,
+        items: country.items,
+    });
+}
+
+export default configs;

@@ -12,7 +12,8 @@
   import language from "../language.ts";
   import { useI18n } from 'vue-i18n'
   import TimerEnum from "../enums/TimerEnum.ts";
-  const { locale } = useI18n({ useScope: 'global' })
+
+  const { locale } = useI18n({ useScope: 'global' });
 
   const store = useAppStore();
 
