@@ -14,6 +14,7 @@ const ROOT = `./src/countries/files/`;
 class CountriesParser {
 
     code: string;
+    name: string;
     zoom: number;
     warning: boolean;
     exceptions: [];
@@ -25,6 +26,8 @@ class CountriesParser {
     constructor(item: any) {
         this.path = item.path;
         this.code = path.parse(this.path).name;
+        this.name = item?.name ?? this.code;
+        this.name = this.name.replaceAll('-', ' ');
         this.zoom = item?.zoom ?? 2;
         this.folder = ROOT + `${this.code}/`;
         this.itemsFolder = this.folder + `items/`;
@@ -50,17 +53,31 @@ class CountriesParser {
         return value[0].toUpperCase() + value.slice(1);
     }
 
+    fixDash(value: string) {
+        let newValue = value;
+        newValue = newValue.replaceAll(' -', '-');
+        newValue = newValue.replaceAll('- ', '-');
+        return newValue;
+    }
+
+    fixCountryName(value: string) {
+        let newValue = value;
+        newValue = this.firstLetterToUppercase(newValue);
+        newValue = this.fixDash(newValue);
+        return newValue;
+    }
+
     async getLanguage(value: string): Promise<Language>
     {
         const res = {};
-        const en = this.firstLetterToUppercase(value);
+        const en = this.fixCountryName(value);
         for(let i = 0; i < language.length; i++){
             const item = language[i];
             if(item.code === 'en'){
                 res[item.code] = en;
             } else {
                 try {
-                    res[item.code] = this.firstLetterToUppercase(await translate(value, item.code));
+                    res[item.code] = this.fixCountryName(await translate(value, item.code));
                 } catch (error){
                     console.error(`Fail translate: ${item.code}`, error);
                     res[item.code] = en;
@@ -72,7 +89,7 @@ class CountriesParser {
 
     async parse(){
         this.config = {
-            name: await this.getLanguage(this.code),
+            name: await this.getLanguage(this.name),
             code: this.code,
             zoom: this.zoom,
             items: [],

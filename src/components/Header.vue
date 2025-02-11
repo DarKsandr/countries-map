@@ -12,6 +12,9 @@
   import language from "../language.ts";
   import { useI18n } from 'vue-i18n'
   import TimerEnum from "../enums/TimerEnum.ts";
+  import type Country from "../interfaces/Country.ts";
+  // @ts-ignore
+  import vSelect from 'vue-select';
 
   const { locale } = useI18n({ useScope: 'global' });
 
@@ -59,22 +62,25 @@
     const target = e.target as HTMLSelectElement;
     locale.value = target.value;
   }
+
+  const optionsCountry = computed(() => Countries.map(item => ({label: item.name[store.language as keyof Language], code: item.code})));
 </script>
 
 <template>
   <div class="row sticky-top bg-white border-bottom border-2 pt-4 pb-lg-4 gap-3 gap-lg-0 align-items-center">
-    <div class="col-lg-2 col-md-12">
-      <div class="form-floating">
-        <select v-model="store.code" class="form-select" @change="store.changeZoom" id="countrySelect" :aria-label="$t('header.country')" :disabled="isStartOrPause">
-          <option v-for="item in Countries" :key="item.code" :value="item.code">
-            {{item.name[store.language as keyof Language]}}
-          </option>
-        </select>
-        <label for="countrySelect">{{ $t('header.country') }}</label>
-      </div>
+    <div class="col-lg-3 col-md-12">
+      <v-select 
+          :options="optionsCountry" 
+          v-model="store.code"  
+          @option:selected="store.changeZoom" 
+          id="countrySelect" 
+          :aria-label="$t('header.country')" 
+          :disabled="isStartOrPause"
+          :reduce="(country: Country)  => country.code"
+        />
     </div>
 
-    <div class="h4 col-lg-4 d-none d-lg-flex justify-content-center align-items-center country-enter">
+    <div class="h4 col-lg-3 d-none d-lg-flex justify-content-center align-items-center country-enter">
       <div v-if="countryEnter">{{countryEnter.name[store.language as keyof Language]}}</div>
     </div>
 
