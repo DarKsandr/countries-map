@@ -69,7 +69,7 @@
 <template>
   <div class="sticky-top bg-white border-bottom border-2 pt-4 pb-lg-4 gap-3 gap-lg-0 align-items-center">
     <div class="row align-items-center">
-      <div class="col">
+      <div class="col-12 col-md-6 col-lg-4">
         <v-select 
             :options="optionsCountry" 
             v-model="store.code"  
@@ -81,11 +81,11 @@
           />
       </div>
 
-      <div class="h4 col d-none d-lg-flex justify-content-center align-items-center country-enter">
+      <div class="h4 col-12 col-lg-4 d-none d-lg-flex justify-content-center align-items-center country-enter">
         <div v-if="countryEnter">{{countryEnter.name[store.language as keyof Language]}}</div>
       </div>
 
-      <div class="col">
+      <div class="col-12 col-md-6 col-lg-4">
         <div class="input-group">
           <div class="form-floating">
             <ZoomInput :disabled="isDisabled" id="ZoomInput" :placeholder="$t('header.scale')" />
