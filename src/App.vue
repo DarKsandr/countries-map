@@ -5,9 +5,13 @@ import {ref} from "vue";
 import type CountryItem from "./interfaces/CountryItem.ts";
 import {useAppStore} from "./stores/appStore.ts";
 import ModalInfo from "./components/ModalInfo.vue";
-import { modal } from "./utils.ts";
+import { modal } from "./modal.ts";
 
 const store = useAppStore();
+
+import('./countries/index.min').then(res => {
+  store.countries = [...res.default];
+});
 
 const countryEnter = ref<CountryItem|null>(null);
 </script>

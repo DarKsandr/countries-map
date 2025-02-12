@@ -1,7 +1,7 @@
 import {defineStore} from "pinia";
-import Countries from "../countries";
 import type Country from "../interfaces/Country";
 import { ROUND, ZOOM } from "../const";
+import { deepClone } from "../utils";
 
 export const useAppStore = defineStore('app', {
     state: () => ({
@@ -13,17 +13,14 @@ export const useAppStore = defineStore('app', {
         collect: false,
         check: false,
         isMove: true,
+        countries: [] as Country[],
+        country: null as null|Country,
     }),
-    getters: {
-        country(): null|Country
-        {
-            const country = this.code
-                ? Countries.find((item: Country) => item.code === this.code)
-                : null;
-            return country ? country : null;
-        }
-    },
     actions: {
+        async setCountry(){
+            const res = await import(`./../countries/files/${this.code}/config.json`);
+            this.country = deepClone(res.default);
+        },
         changeZoom(){
           if(this.country){
               this.zoom = this.country.zoom;

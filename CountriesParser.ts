@@ -9,6 +9,7 @@ import path from 'node:path';
 import language from './src/language';
 import files from './src/countries/map.json';
 import LanguageDetect from 'languagedetect';
+import {deepClone} from './src/utils';
 
 const ROOT = `./src/countries/files/`;
 
@@ -23,6 +24,7 @@ class CountriesParser {
     itemsFolder: string;
     path: string;
     config: Country;
+    configMin: Country;
 
     constructor(item: any) {
         this.path = item.path;
@@ -99,12 +101,14 @@ class CountriesParser {
     }
 
     async parse(){
-        this.config = {
+        const config = {
             name: await this.getLanguage(this.name),
             code: this.code,
             zoom: this.zoom,
             items: [],
         };
+        this.config = deepClone(config);
+        this.configMin = deepClone(config);
         await this.makeDir();
         const file = await readFile(this.path, 'utf8');
         const parsed = parse(file);
@@ -183,7 +187,10 @@ class CountriesParser {
     }
 
     createConfig(){
-        return writeFile(this.folder + `config.json`, JSON.stringify(this.config));
+        return Promise.all([
+            writeFile(this.folder + `config.json`, JSON.stringify(this.config)),
+            writeFile(this.folder + `config.min.json`, JSON.stringify(this.configMin)),
+        ]);
     }
 }
 

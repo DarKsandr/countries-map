@@ -1,12 +1,11 @@
 <script setup lang="ts">
-  import Countries from "../countries";
   import type CountryItem from "../interfaces/CountryItem.ts";
   import type Language from "../interfaces/Language.ts";
   import {useAppStore} from "../stores/appStore.ts";
   import ModalConfirm from "./ModalConfirm.vue";
-  import {modal} from "../utils.ts";
+  import { modal } from "../modal.ts";
   import ZoomInput from "./ZoomInput.vue";
-  import {computed, ref, useTemplateRef} from "vue";
+  import {computed, ref, useTemplateRef, watch} from "vue";
   import Timer from "./Timer.vue";
   import RoundInput from "./RoundInput.vue";
   import language from "../language.ts";
@@ -63,7 +62,12 @@
     locale.value = target.value;
   }
 
-  const optionsCountry = computed(() => Countries.map(item => ({label: item.name[store.language as keyof Language], code: item.code})));
+  const optionsCountry = computed(() => store.countries.map(item => ({label: item.name[store.language as keyof Language], code: item.code})));
+
+  watch(() => store.code, async () => {
+    await store.setCountry();
+    store.changeZoom();
+  });
 </script>
 
 <template>
@@ -72,8 +76,7 @@
       <div class="col-12 col-md-6 col-lg-4">
         <v-select 
             :options="optionsCountry" 
-            v-model="store.code"  
-            @option:selected="store.changeZoom" 
+            v-model="store.code"
             id="countrySelect" 
             :aria-label="$t('header.country')" 
             :disabled="isStartOrPause"
