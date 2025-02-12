@@ -674,6 +674,10 @@
     {
         "path": "./src/countries/svg/russia.svg",
         "zoom": 1,
+        "lang": {
+            "name": "en",
+            "items": "ru"
+        },
         "warning": true,
         "exceptions": []
     },
@@ -878,6 +882,10 @@
     {
         "path": "./src/countries/svg/vietnam.svg",
         "zoom": 1,
+        "lang": {
+            "name": "en",
+            "items": "en"
+        },
         "warning": true,
         "exceptions": []
     },

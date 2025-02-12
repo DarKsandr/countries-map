@@ -13,10 +13,16 @@ import {deepClone} from './src/utils';
 
 const ROOT = `./src/countries/files/`;
 
+enum LangEnum {
+    NAME = 'name',
+    ITEMS = 'items'
+}
+
 class CountriesParser {
 
     code: string;
     name: string;
+    lang: {name?: string, items?: string}|null;
     zoom: number;
     warning: boolean;
     exceptions: [];
@@ -31,6 +37,7 @@ class CountriesParser {
         this.code = path.parse(this.path).name;
         this.name = item?.name ?? this.code;
         this.name = this.name.replaceAll('-', ' ');
+        this.lang = item?.lang;
         this.zoom = item?.zoom ?? 2;
         this.folder = ROOT + `${this.code}/`;
         this.itemsFolder = this.folder + `items/`;
@@ -71,11 +78,11 @@ class CountriesParser {
         return newValue;
     }
 
-    async getLanguage(value: string, fix: boolean = false): Promise<Language>
+    async getLanguage(value: string, type: LangEnum): Promise<Language>
     {
         const res = {};
         const name = this.fixCountryName(value);
-        const lang = this.checkLanguage(name, fix);
+        const lang = this.checkLanguage(name, type);
         for(let i = 0; i < language.length; i++){
             const item = language[i];
             try {
@@ -89,9 +96,12 @@ class CountriesParser {
         return res as Language;
     }
 
-    checkLanguage(value: string, fix: boolean){
-        if(fix && this.name === 'russia'){
-            return 'ru';
+    checkLanguage(value: string, type: LangEnum){
+        if(type === LangEnum.NAME && this.lang?.name){
+            return this.lang.name;
+        }
+        if(type === LangEnum.ITEMS && this.lang?.items){
+            return this.lang.items;
         }
         const langs = lngDetector.detect(value, 1);
         if(langs && langs[0] && langs[0][0]){
@@ -102,7 +112,7 @@ class CountriesParser {
 
     async parse(){
         const config = {
-            name: await this.getLanguage(this.name),
+            name: await this.getLanguage(this.name, LangEnum.NAME),
             code: this.code,
             zoom: this.zoom,
             items: [],
@@ -174,7 +184,7 @@ class CountriesParser {
         const svgPath = this.itemsFolder +  `${properties.title}.svg`;
 
         this.config.items.push({
-            name: await this.getLanguage(properties.title, true),
+            name: await this.getLanguage(properties.title, LangEnum.ITEMS),
             code: properties.id,
             image: svgPath,
             width,
