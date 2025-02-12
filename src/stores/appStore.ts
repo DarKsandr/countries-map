@@ -18,13 +18,17 @@ export const useAppStore = defineStore('app', {
     }),
     actions: {
         async setCountry(){
-            const res = await import(`./../countries/files/${this.code}/config.json`);
-            this.country = deepClone(res.default);
+            this.country = null;
+            if(this.code){
+                const res = await import(`./../countries/files/${this.code}/config.json`);
+                this.country = deepClone(res.default);
+            }
         },
         changeZoom(){
-          if(this.country){
-              this.zoom = this.country.zoom;
-          }
+            this.zoom = ZOOM;
+            if(this.country){
+                this.zoom = this.country.zoom;
+            }
         },
     },
 });
